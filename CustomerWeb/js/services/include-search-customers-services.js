@@ -1,11 +1,11 @@
 angular.module('factoryIncludeSearchCustomersServices', ['ngResource'])
     .factory('includeSearchCustomersServices', function ($resource) {
 
-        return $resource('//:key', null, {
+        return $resource('rest/customerservice/includesearchcustomer/:json', null, {
             'save': {
-                method: 'POST',
+                method: 'GET',
                 headers: { "Content-Type": "application/json;charset=utf-8" },
-                hasBody: true
+                hasBody: false
             }
         });
     }) 
@@ -16,12 +16,12 @@ angular.module('factoryIncludeSearchCustomersServices', ['ngResource'])
             return $q(function (resolve, reject) {
 
                 if (flag == 'search') {
-                    includeSearchCustomersServices.query({ key: customer.key }, customer, function (dados) {
+                    includeSearchCustomersServices.query(customer, function (dados) {
                         $rootScope.$broadcast(customerIncludeSearch);
                         
                         resolve({
                             dadosConsulta: dados,
-                            mensagem: 'Clientes foram consultado com sucesso',
+                            mensagem: 'Clientes foram consultados com sucesso',
                             search: true
                         });
                     }, function (erro) {
@@ -33,7 +33,7 @@ angular.module('factoryIncludeSearchCustomersServices', ['ngResource'])
                     });
 
                 } else {
-                    includeSearchCustomersServices.save(customer, function (dados) {
+                    includeSearchCustomersServices.save({json: customer.coding},customer, function (dados) {
                         $rootScope.$broadcast(customerIncludeSearch);
 
                         resolve({

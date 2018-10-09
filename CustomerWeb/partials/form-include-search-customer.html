@@ -1,55 +1,110 @@
+<form novalidate name="dataForm" id="form-fixed" class="row">
     <div class="col-md-6">
-            <label>Razão Social</label>
-            <div >
-                <input type="text" class="input-width"/>
-            </div>
+        <label>Razão Social</label>
+        <div>
+            <input id="razao" type="text" required class="form-outline input-width" name="razao" ng-model="razao">
         </div>
-        <div class="col-md-6">
-            <label>Nome Fantasia</label>
-            <div >
-                <input type="text" class="input-width"/>
-            </div>
+    </div>
+    <div class="col-md-6">
+        <label>Nome Fantasia</label>
+        <div>
+            <input id="nome" type="text" required class="form-outline input-width" name="nome" ng-model="nome">
+        </div>
     </div>
 
     <div class="col-md-6">
-            <label>CPF/CNPJ</label>
-            <div >
-                <input type="text" class="input-width"/>
-            </div>
+        <label>CPF/CNPJ</label>
+        <div>
+            <input id="cpfcnpj" type="text" required class="form-outline input-width" name="cpfcnpj" ng-model="cpfcnpj">
         </div>
-        <div class="col-md-6">
-            <label>Telefone de Contato</label>
-            <div >
-                <input type="text" class="input-width"/>
-            </div>
     </div>
-    <div class="button">
-        <input type="button" value="Consulta">
-        <input type="button" value="Cadastro">
+    <div class="col-md-6">
+        <label>Telefone de Contato</label>
+        <div>
+            <input id="telefone" type="text" required class="form-outline input-width" name="telefone" ng-model="telefone">
+        </div>
     </div>
 
-    <div class="col-md-12">
-        <table>
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Razão Social</th>
-                    <th>Nome Fantasia</th>
-                    <th>CPF/CNPJ</th>
-                    <th>Telefone de Contato</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{codigo}}</td>
-                    <td>{{razao}}</td>
-                    <td>{{nome}}</td>
-                    <td>{{cpfCnpj}}</td>
-                    <td>{{telefone}}</td>
-                    <td>{{status}}</td>
-                </tr>
-            </tbody>
-    
-        </table>
+    <div class="row margin-top-25">
+        <div class="margin-right-negative buttonV2">
+            <input type="submit" ng-click="include()" value="Cadastrar" class="button-red-slim pointer" />
+            <input type="submit" ng-click="search()" value="Consultar" class="button-red-slim pointer" />
+        </div>
     </div>
+<div></div>
+<div></div>
+<div></div>
+    <div class="bs-component ng-scope">
+           
+            <table class="table-data">
+                <thead>
+                    <tr>
+                        <th ng-click="sort_by('user')">Código
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th ng-click="sort_by('codcliente')">Razão Social
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th ng-click="sort_by('nome')">Nome Fantasia
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th ng-click="sort_by('email')">CPF/CNPJ
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th ng-click="sort_by('data')">Telefone de Contato
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+                        <th ng-click="sort_by('conces')">Status
+                            <i class="fa fa-fw fa-sort"></i>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ngRepeat: user in users|orderBy:sortKey:reverse|filter:search|itemsPerPage:5 -->
+                    <tr ng-repeat-end="" ng-repeat-start="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse | filter : searchInput : filterAll"
+                        pagination-id="cliente">
+                        <td>{{item.codigo}}</td>
+                        <td>{{item.razao}}</td>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.cpfCnpj}}</td>
+                        <td>{{item.telefone}}</td>
+                        <td>{{item.status}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <table class="center">
+                      
+                    <tr>
+                        <td colspan="9">
+                            <div align="center"
+                                style="color: #333; text-align: center;">Mostrando
+                                p&#225;gina {{currentPage+1}} de {{pagedItems.length}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9">{{sizes}}
+                            <div class="text-center">
+                                <ul class="pagination" id="pagination">
+                                    <li ng-class="{disabled: currentPage == 0}"><a
+                                        href="javascript:;" ng-click="prevPage()">Anterior</a></li>
+
+                                    <li ng-repeat="n in range(pagedItems.length) | limitTo: currentPage + 3"
+                                        ng-hide="n < currentPage-2"
+                                        ng-class="{active: n == currentPage}"
+                                        ng-click="setPage()"><a href="javascript:;"
+                                        ng-bind="n + 1">1</a></li>
+
+                                    <li ng-class = "{disabled: currentPage == pagedItems.length - 1}">
+                                        <a href="javascript:;" ng-click="nextPage()">Proximo</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>	
+                    </table>
+                </tfoot>
+            </table>
+        </div>
+
+</form>

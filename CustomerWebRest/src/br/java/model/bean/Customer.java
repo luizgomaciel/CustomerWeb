@@ -2,6 +2,10 @@ package br.java.model.bean;
 
 import java.io.Serializable;
 
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 @JsonRootName(value = "customer")
 public class Customer implements Serializable {
 
@@ -59,6 +63,20 @@ public class Customer implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public static Customer getInstance() {
+		return new Customer();
+	}
+
+	public Customer fromJson(JSONObject json) {
+		Customer customer = Customer.getInstance();
+		customer.setNome(json.getString("nome"));
+		customer.setRazao(json.getString("razao"));
+		customer.setStats(json.getString("status"));
+		customer.setTelefone(json.getString("telefone"));
+
+		return customer;
 	}
 
 }

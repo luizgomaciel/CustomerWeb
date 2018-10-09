@@ -25,7 +25,7 @@ public class CustomerDAO {
 	public List<Customer> searchCustomers() {
 		List<Customer> customers = null;
 
-		String sql = "SELECT ID, razao, nome, cpfcnpj, telefone, stats FROM customer ";
+		String sql = "SELECT ID, RAZAO, NOME, CPFCNPJ, TELEFONE, STATS FROM CUSTOMER ";
 
 		try {
 			customers = (List<Customer>) jdbcTemplateMysql.query(new PreparedStatementCreator() {
@@ -60,11 +60,31 @@ public class CustomerDAO {
 		}
 		return customers;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void includeCustomer(Customer customer) {
-		//TODO: build
-	}
 
+		try {
+
+			StringBuilder query = new StringBuilder();
+			query.append(" INSERT INTO CUSTOMER (RAZAO, NOME, CPFCNPJ, TELEFONE) VALUES (?,?,?,?) ");
+
+			jdbcTemplateMysql.update(new PreparedStatementCreator() {
+				@Override
+				public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+
+					PreparedStatement psst = connection.prepareStatement(query.toString());
+					psst.setString(1, customer.getRazao());
+					psst.setString(2, customer.getNome());
+					psst.setString(3, customer.getCpfcnpj());
+					psst.setString(4, customer.getTelefone());
+					return psst;
+
+				}
+			});
+
+		} catch (Exception e) {
+		}
+	}
 
 }

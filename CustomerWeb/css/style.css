@@ -5259,12 +5259,15 @@ li.uib-typeahead-match a:hover,li.uib-typeahead-match a:active {color:#d60036;te
 }
 
 .input-width{
-	width:40em;
+	width:37em;
 }
 
-table>thead>tr>th, table>tbody>tr>td{
-	padding: 8px 48px 10px 48px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	border-style: groove;
+.center{
+	margin: 0 auto;
+}
+
+.buttonV2{
+	margin-top: 120px;
+    margin-bottom: 20px;
+    margin-left: 18px;
 }
