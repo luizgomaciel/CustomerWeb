@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+
 	<properties>
 		<!-- Basic -->
 		<java.source>1.8</java.source>
